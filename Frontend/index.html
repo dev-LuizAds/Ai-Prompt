@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI-Prompt</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="shortcut icon" href="./img/robo.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+      integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+
+  <body style="background-color: rgb(33, 32, 32)">
+    <!--Modal window - FOR EMAIL -->
+    <div
+      class="modal"
+      tabindex="3"
+      id="modal"
+      style="backdrop-filter: blur(10px)"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" id="modalParicular">
+          <div class="modal-header">
+            <h6 class="modal-title text-light text-center">
+              Send your question to your email.
+            </h6>
+            <div
+              type="button"
+              class="btn-close btn-sm text-bg-danger"
+              data-bs-dismiss="modal"
+              id="closeBtn"
+              style="border-radius: 50%"
+            ></div>
+          </div>
+          <div class="modal-body">
+            <input
+              type="email"
+              name="email"
+              id="emailValue"
+              placeholder="Type your email."
+              class="form form-control-sm m-2"
+            />
+          </div>
+          <div id="btnGroup">
+            <button
+              type="button"
+              class="btn btn-primary btn-sm btn-success"
+              id="emailBtn"
+            >
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Modal for history -->
+    <div class="modal bs-modal-color" tabindex="3" id="modalHistory" style="backdrop-filter: blur(10px)">
+      <div
+        class="modal-dialog modal-dialog-centered modal-lg"
+        style="height: 400px"
+      >
+        <div class="modal-content" id="windowHistory">
+          <div class="modal-header">
+            <h5 class="modal-title text-light">History</h5>
+            <div
+              type="button"
+              class="btn-close btn-sm text-bg-danger"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              style="border-radius: 50%"
+            ></div>
+          </div>
+
+          <div class="modal-body">
+            <div id="card">
+              <h4 id="infodata" class="h4 text-center text-success mt-5 ">No data found<br/><br/><i class="fa-solid fa-face-sad-tear fa-2xl" style="color: #ffff00;"></i></h4>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--End-->
+
+   
+
+    <main class="container col-6">
+       <div id="dark-mode">
+      <i class="fa-solid fa-sun" id="btnMode" title="Dark/Light Mode"></i>
+    </div>
+      <h5 class="text-center mb-4" style="color: white">AI-Prompt</h5>
+
+      <div
+        class="input-group"
+        style="
+          width: 100%;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 20px;
+          flex-direction: row;
+        "
+      >
+        <span id="inputIcon">
+          <i class="fa-solid fa-microphone" id="microPhoneBTn"></i>
+        </span>
+        <input
+          type="text"
+          id="inputQuestion"
+          placeholder="Type your question"
+          name="inputQuestion"
+          maxlength="750"
+        />
+      </div>
+
+      <button id="btnSendMsg" class="btn btn-sm btn-success mb-3">Send</button>
+
+      <div class="border-0">
+        <span
+          id="spantag"
+          class="h6 m-1"
+          style="color: rgb(28, 219, 69)"
+        ></span>
+
+        <div class="container text-white p-3 border-0" id="answerScreen">
+          <p id="answerField"></p>
+        </div>
+        <div class="footer border-0 bg-success text-light p-2 d-flex flex-row">
+          <div id="option">
+            <i class="fa-solid fa-bars"></i>
+          </div>
+
+          <div id="iconOptions">
+            <i class="fa-regular fa-copy" id="clickIcon"></i>
+            <i class="fa-solid fa-file-arrow-down" id="dlBtn"></i>
+            <i class="fa-regular fa-headphones" id="btnAudio"></i>
+            <i class="fa-regular fa-trash-can" id="cleanData"></i>
+            <i class="fa-regular fa-floppy-disk" id="saveBtn"></i>
+            <i class="fa-regular fa-envelope" id="sendMail"></i>
+              <label for="fileContent">
+            <i class="fa-solid fa-paperclip">
+            
+                <input type="file" id="fileContent" hidden multiple>
+            </i>
+          </label>
+            <i
+              class="fa-solid fa-clock-rotate-left"
+              id="historic"
+              data-bs-toggle="modal"
+              data-bs-target="#modalHistory"
+            ></i>
+          </div>
+          <div style="float: inline-end; display: flex; justify-self: end">
+            <span style="color: rgb(250, 252, 250)" id="alertText"></span>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div class="loader-container">
+      <div id="loader"></div>
+    </div>
+
+    <script src="app.js" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

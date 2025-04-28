@@ -1,0 +1,303 @@
+
+  body {
+    background-color: rgb(33, 32, 32);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Garantir que o body ocupe toda a altura da tela */
+    margin: 0; /* Remover margens padrão */
+    font-family: Arial, Helvetica, sans-serif;
+    transition: 2s;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+    max-width: 600px;
+    padding: 25px;
+    background-color: rgb(49, 47, 47);
+    height: 550px;
+    overflow: hidden;
+    margin: 30px;
+    border-radius: 10px;
+    position: relative; /* Permite posicionamento absoluto dos itens dentro de main */
+  }
+
+  /* Demais estilos (seus botões, input, etc.) permanecem os mesmos */
+
+
+button {
+  min-width: 20%;
+  margin: 5px;
+  outline: none;
+  margin-top: 10px;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+}
+
+
+.input-group {
+  position: relative; /* Necessário para o posicionamento absoluto do ícone */
+  width: 100%;
+}
+
+#inputIcon {
+  position: absolute; /* Posiciona o ícone dentro do input */
+  right: 10px; /* Ajuste a distância da borda direita do input */
+  top: 50%; /* Centraliza verticalmente */
+  transform: translateY(-50%); /* Compensa o efeito de centralização */
+  background-color: transparent; /* Pode remover a cor de fundo se não necessário */
+  color: aliceblue; /* Cor do ícone */
+}
+
+input {
+  outline: none;
+  border: none;
+  color: aliceblue;
+  background-color: #3f3f3f;
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  padding-right: 40px; /* Garante que o texto não sobreponha o ícone */
+  min-width: 200px;
+}
+
+input:focus {
+  border: 0.8px solid rgb(158, 232, 46);
+  transition: border-color 2s;
+}
+
+
+#answerScreen {
+  background-color: #3f3f3f;
+  text-align: justify;
+  padding: 5px;
+  outline: none;
+  border: none;
+  height: 260px; /* Set a height for the scrollable area */
+  overflow-y: auto; /* Enable vertical scrollbar */
+  font-size: small;
+}
+
+#microPhoneBTn {
+  color: aliceblue;
+
+}
+
+#answerScreen::-webkit-scrollbar {
+  width: 10px; /* Set the width of the scrollbar */
+}
+
+#answerScreen::-webkit-scrollbar-thumb {
+  background-color: white; /* Thumb color */
+}
+
+#answerScreen::-webkit-scrollbar-track {
+  background-color: rgb(45, 48, 46); /* Track color */
+}
+
+
+#clickIcon {
+  cursor: pointer;
+}
+
+i {
+  margin-right: 10px;
+  cursor: pointer;
+}
+i:hover {
+  scale: 1.2;
+}
+
+.loader-container {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  height: 100vh; /* Define a altura do contêiner para ocupar a tela inteira */
+}
+
+#loader {
+  height: 100px;
+  width: 100px; /* Match height to make it a circle */
+  border-radius: 50%;
+  display: none;
+  border: 10px solid #1f90ee;
+  border-top: 10px solid transparent; /* Add this to create the spinner effect */
+  animation: spinner 1s infinite;
+  align-self: center;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+#dark-mode {
+  position: absolute; /* Posiciona o ícone no topo do main */
+  top: 10px;
+  right: 10px; /* Ajusta a distância da borda direita */
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+#btnMode {
+  color: yellow;
+}
+
+
+#modalParicular{
+background-color: rgb(49, 47, 47);
+padding: 10px;
+border-radius: 0;
+}
+
+#btnGroup{
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+gap:15px;
+}
+
+#iconOptions{
+  display: none;
+}
+
+#card{
+  background-color:#3f3f3f;
+  color: white;
+  padding: 10px;
+  overflow-y: auto; 
+  height: 350px;
+  text-align: justify;
+}
+
+#card::-webkit-scrollbar {
+  width: 10px; /* Set the width of the scrollbar */
+}
+
+#card::-webkit-scrollbar-thumb {
+  background-color: white; /* Thumb color */
+}
+
+#card::-webkit-scrollbar-track {
+  background-color: rgb(45, 48, 46); /* Track color */
+}
+
+
+#windowHistory{
+  background-color:  rgb(49, 47, 47);
+  border-radius: 0;
+  border: 0;
+}
+
+/* Responsivo para tablets e telas até 992px */
+@media screen and (max-width: 992px) {
+  main.container {
+    width: 80% !important;
+    height: auto;
+    padding: 20px;
+  }
+
+  input {
+    min-width: 200px;
+    font-size: 14px;
+  }
+
+  #answerScreen {
+    height: 200px;
+  }
+
+  #btnSendMsg {
+    min-width: 40%;
+    font-size: 14px;
+  }
+
+  #iconOptions i {
+    font-size: 14px;
+  }
+}
+
+/* Responsivo para celulares (até 576px) */
+@media screen and (max-width: 576px) {
+  main.container {
+    width: 95% !important;
+    margin: 10px;
+    height: auto;
+    padding: 15px;
+  }
+
+  .input-group {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  #inputIcon {
+    position: static;
+    margin-bottom: 10px;
+    align-self: center;
+  }
+
+  input {
+    width: 100%;
+    min-width: unset;
+  }
+
+  button {
+    width: 100% !important;
+  }
+
+  #btnSendMsg {
+    width: 100%;
+  }
+
+  #answerScreen {
+    height: auto;
+    max-height: 250px;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #iconOptions {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  #iconOptions i {
+    font-size: 16px;
+    margin: 5px;
+  }
+
+  #dark-mode {
+    font-size: 14px;
+    margin: 5px;
+  }
+
+  .modal-dialog {
+    width: 90% !important;
+    margin: auto;
+  }
+
+  #card {
+    height: 250px;
+  }
+}
