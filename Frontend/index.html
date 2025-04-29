@@ -110,29 +110,7 @@
     </div>
       <h5 class="text-center mb-4" style="color: white">AI-Prompt</h5>
 
-      <div
-        class="input-group"
-        style="
-          width: 100%;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 20px;
-          flex-direction: row;
-        "
-      >
-        <span id="inputIcon">
-          <i class="fa-solid fa-microphone" id="microPhoneBTn"></i>
-        </span>
-        <input
-          type="text"
-          id="inputQuestion"
-          placeholder="Type your question"
-          name="inputQuestion"
-          maxlength="750"
-        />
-      </div>
 
-      <button id="btnSendMsg" class="btn btn-sm btn-success mb-3">Send</button>
 
       <div class="border-0">
         <span
@@ -174,6 +152,28 @@
           </div>
         </div>
       </div>
+      <div
+        class="input-group"
+        style="
+          width: 100%;
+          align-items: center;
+          justify-content: center;
+          margin-top: 20px;
+          flex-direction: row;
+        "
+      >
+        <span id="inputIcon">
+          <i class="fa-solid fa-microphone" id="microPhoneBTn"></i>
+        </span>
+        <input
+          type="text"
+          id="inputQuestion"
+          placeholder="Type your question"
+          name="inputQuestion"
+          maxlength="750"
+        />
+      </div>
+      <button id="btnSendMsg" class="btn btn-sm btn-success mt-3">Send</button>
     </main>
     <div class="loader-container">
       <div id="loader"></div>
