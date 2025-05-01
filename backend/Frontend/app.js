@@ -539,7 +539,7 @@ btnFile.addEventListener("change", function () {
 //History list of questions ans response
 
 function showHistory() {
-  const url = "http://localhost:3000/";
+  const url = "http://localhost:3000/list";
   fetch(url)
     .then((res) => res.json())
     .then((dados) => {
@@ -564,7 +564,7 @@ function showHistory() {
 
         h6.textContent = item.question;
         p.innerHTML = item.response;
-        dateValue.innerHTML = `Question made at ${new Date(
+        dateValue.innerHTML = `Question posed on ${new Date(
           item.createdAt
         ).toLocaleDateString("pt-BR")}.<hr>`;
 

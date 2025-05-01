@@ -4,17 +4,22 @@ const app = express();
 const db = require("./database/db");
 const sendMail = require("./mailer/mailer");
 const Question = require("./database/questionSchema");
-
+const path = require("path");
 
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 
+app.use(express.static(path.join(__dirname, "Frontend")));
 //database Connection
 db.then(() => console.log("Database connected.")).catch((err) =>
   console.log("Error " + err)
 );
 
-app.get("/", async (req, res) => {
+app.get("/home", (req, res) => {
+  res.sendFile(path.join(__dirname, "Frontend", "index.html"));
+});
+
+app.get("/list", async (req, res) => {
   try {
     const items = await Question.find().sort({ createdAt: -1 });
     if (items.length > 0) {
@@ -87,18 +92,16 @@ app.delete("/delete/:id", async function (req, res) {
   }
 });
 
-
 //rota para requisições da api CHATGPT
 
-require('dotenv').config()
+require("dotenv").config();
 const apiKey = process.env.KEY;
-const OpenAI = require('openai')
-
+const OpenAI = require("openai");
 
 app.post("/req", async (req, res) => {
   const { question } = req.body;
   const client = new OpenAI({
-    apiKey:process.env.KEY,
+    apiKey: process.env.KEY,
   });
   try {
     const completion = await client.chat.completions.create({
@@ -113,21 +116,13 @@ app.post("/req", async (req, res) => {
       ],
       temperature: 0.8,
     });
-    res.json(completion)
+    res.json(completion);
   } catch (err) {
     console.error("Error calling the API." + err);
     res.status(500).send("Server error.");
   }
-
 });
-
-
-
 
 app.listen(3000, () => {
   console.log("Server running at port 3000.");
 });
-
-
-
-
