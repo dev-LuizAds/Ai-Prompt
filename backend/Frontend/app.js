@@ -25,6 +25,7 @@ const modalHistory = document.getElementById("modalHistory");
 const card = document.getElementById("card");
 const windowHistory = document.getElementById("windowHistory");
 const btnFile = document.getElementById("fileContent");
+const alertMessage = document.getElementById('alertMessage')
 //Event to hide the icons options
 let btnOn = true;
 const iconOptions = document.getElementById("iconOptions");
@@ -615,3 +616,16 @@ historyBtn.addEventListener("mouseout", () => {
 });
 
 
+// alert message (Connection)
+
+function alertMesg(){
+
+  if(!navigator.onLine){ 
+    alertMessage.style.display = 'block'
+  }else{
+    alertMessage.style.display = 'none' 
+  }
+
+}
+setInterval(alertMesg, 5000)
+alertMesg()

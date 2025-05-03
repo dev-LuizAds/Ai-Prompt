@@ -302,3 +302,18 @@ gap:15px;
     height: 250px;
   }
 }
+
+
+#alertMessage{
+  height: 30px;
+  width: 100%;
+  color: #ffff;
+  font-weight: bold;
+  text-align: center;
+  line-height: 50%;
+  left:0;
+  top: 0;
+  position: fixed;
+  align-self: center;
+  display: none;
+}
