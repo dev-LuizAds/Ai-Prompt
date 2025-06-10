@@ -124,11 +124,15 @@ function requestAI() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        answerContent.textContent = data.choices[0].message.content;
+        answerContent.textContent = data.candidates[0].content.parts[0].text
       })
       .catch((error) => {
-        console.Error("Error:" + error);
-        answerContent.textContent = "Erro ou resposta não encontrada";
+        console.log("Error:" + error);
+        if(error.code === '429'){
+           alert(error.response?.data?.message || "Erro inesperado.")
+        }
+        answerContent.textContent = error.message;
+       
       })
       .finally(() => {
         console.timeEnd();

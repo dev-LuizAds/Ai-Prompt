@@ -5,6 +5,7 @@ const db = require("./database/db");
 const sendMail = require("./mailer/mailer");
 const Question = require("./database/questionSchema");
 const path = require("path");
+const {GoogleGenAI}= require('@google/genai')
 
 app.use(express.json());
 app.use(cors({ origin: "*" }));
@@ -92,37 +93,39 @@ app.delete("/delete/:id", async function (req, res) {
   }
 });
 
-//rota para requisições da api CHATGPT
+//rota para requisições da api Gemini- Google
 
 require("dotenv").config();
 const apiKey = process.env.KEY;
-const OpenAI = require("openai");
+//const OpenAI = require("openai");
+
 
 app.post("/req", async (req, res) => {
   const { question } = req.body;
-  const client = new OpenAI({
-    apiKey: process.env.KEY,
-  });
-  try {
-    const completion = await client.chat.completions.create({
-      model: "gpt-3.5-turbo-0125",
-      messages: [
-        {
-          role: "system",
-          content:
-            "Seu papel é de um superasssistente que responde com bom humor e animação. Também usa emoticons e se interessa pelo usuário.",
-        },
-        { role: "user", content: question },
-      ],
-      temperature: 0.8,
-    });
-    res.json(completion);
+  const ai = new GoogleGenAI({apiKey})
+  try{
+  const response = await ai.models.generateContent({
+    model: "gemini-2.0-flash",
+    contents: question,
+    config:{
+      maxOutputTokens:300,
+      temperature:0.3,
+    }
+  })
+    return res.json(response);
+    
   } catch (err) {
-    console.error("Error calling the API." + err);
-    res.status(500).send("Server error.");
+    console.log("Error calling the API." + err);
+    if(err.status=='429' || err.code == '429'){
+      res.status(429).json({err})
+      console.log(err)
+    }
+    res.status(500).json("Server error.");
   }
 });
 
 app.listen(3000, () => {
   console.log("Server running at port 3000.");
 });
+
+
