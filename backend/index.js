@@ -110,6 +110,7 @@ app.post("/req", async (req, res) => {
     config:{
       maxOutputTokens:300,
       temperature:0.3,
+      systemInstruction:'Você é um professor que responde de forma objetiva as perguntas, é bastante sério. Seu nome é Pluto, um IA assistente. Procure se apresentar assim em cumprimentos.'
     }
   })
     return res.json(response);
