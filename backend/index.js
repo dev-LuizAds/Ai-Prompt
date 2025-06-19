@@ -7,6 +7,7 @@ const Question = require("./database/questionSchema");
 const path = require("path");
 const {GoogleGenAI}= require('@google/genai')
 
+
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 
@@ -50,10 +51,10 @@ app.get("/question/:id", async function (req, res) {
 });
 
 app.post("/data", async (req, res) => {
-  const { question, response } = req.body;
+  const { question, response, access } = req.body;
 
   try {
-    const ask = await Question.create({ question, response });
+    const ask = await Question.create({ question, response, access });
     if (ask) {
       res.status(201).json({ message: "New question registered." });
       console.log("Question registered.");

@@ -128,8 +128,9 @@ function requestAI() {
       })
       .catch((error) => {
         console.log("Error:" + error);
+        alert(error)
         if(error.code === '429'){
-           alert(error.response?.data?.message || "Erro inesperado.")
+           alert(error.message || "Erro inesperado.")
         }
         answerContent.textContent = error.message;
        
@@ -349,10 +350,14 @@ function saveData() {
 
     bntSave.style.color = "#87cefa";
 
+    // variable for type of access
+    let access = 'Web'
+
     var obj = {
       criatedAt: createdAt,
       question: question,
       response: response,
+      access:access
     };
 
     // code for saving data on mongo
@@ -360,6 +365,7 @@ function saveData() {
     var data = {
       question: question,
       response: response,
+      access:access
     };
 
     fetch("http://localhost:3000/data", {
@@ -571,7 +577,7 @@ function showHistory() {
         p.innerHTML = item.response;
         dateValue.innerHTML = `Question posed on ${new Date(
           item.createdAt
-        ).toLocaleDateString("pt-BR")}.<hr>`;
+        ).toLocaleDateString("pt-BR")} - (<strong style="color:rgb(28, 219, 69)">${item.access}</strong>).<hr>`;
 
         a.onclick = (e) => {
           e.preventDefault();
@@ -590,6 +596,7 @@ function showHistory() {
               })
               .catch((err) => {
                 console.log(err);
+                alert(err, 'Erro inesperado')
               });
           }
         };

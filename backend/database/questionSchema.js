@@ -3,6 +3,7 @@ const moongose = require("mongoose");
 const questionSchema = new moongose.Schema({
   question: String,
   response: String,
+  access: String
 },{
     timestamps:true
 });
