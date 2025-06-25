@@ -354,7 +354,7 @@ function saveData() {
     let access = 'Web'
 
     var obj = {
-      criatedAt: createdAt,
+      createdAt: createdAt,
       question: question,
       response: response,
       access:access
@@ -484,6 +484,10 @@ sendMailbtn.addEventListener("click", () => {
 closeBtn.onclick = () => {
   modal.style.display = "none";
 };
+document.querySelector('#btncloseModalHist').addEventListener('click', ()=>{
+modalHistory.style.display='none'
+})
+
 
 sendMailbtn.onmouseover = () => {
   alertText.innerHTML = "Send email.";
@@ -549,21 +553,42 @@ btnFile.addEventListener("change", function () {
 
 //History list of questions ans response
 
-function showHistory() {
-  const url = "http://localhost:3000/list";
-  fetch(url)
-    .then((res) => res.json())
-    .then((dados) => {
+historyBtn.addEventListener('click', async function(){
+try{
+const response = await fetch('http://localhost:3000/list')
+if(response.status==200){
+ var data= await response.json()
+  modalHistory.style.display='block'
+  showHistory(data)
+}else{
+  alert('No data available.')
+  return
+}
+
+}catch(err){
+  console.log('Error: ', err)
+  alert(err)
+  
+}
+
+})
+
+ 
+
+function showHistory(data) {
+ 
+      if(data){
       document.getElementById("infodata").style.display = "none";
-      dados.data.map((item) => {
+       const card = document.querySelector("#card");
+        card.innerHTML=''
+      data.data.map((item) => {
         const h6 = document.createElement("h6");
         var p = document.createElement("p");
         var dateValue = document.createElement("p");
         var a = document.createElement("a");
         let iconDelete = document.createElement("i");
 
-        const card = document.querySelector("#card");
-
+        
         const urlId = `http://localhost:3000/delete/${item._id}`;
         a.href = urlId;
         h6.style.color = "rgb(28, 219, 69)";
@@ -575,9 +600,9 @@ function showHistory() {
 
         h6.textContent = item.question;
         p.innerHTML = item.response;
-        dateValue.innerHTML = `Question posed on ${new Date(
+        dateValue.innerHTML = `Question posted on ${new Date(
           item.createdAt
-        ).toLocaleDateString("pt-BR")} - (<strong style="color:rgb(28, 219, 69)">${item.access}</strong>).<hr>`;
+        ).toLocaleDateString("pt-BR")} - (<strong style="color: ${item.access === 'Desktop'?'rgb(28, 143, 219)': item.access==='App'? 'rgb(246, 59, 99)':'rgb(28, 219, 69)'}">${item.access}</strong>).<hr>`;
 
         a.onclick = (e) => {
           e.preventDefault();
@@ -593,6 +618,13 @@ function showHistory() {
                 card.removeChild(p);
                 card.removeChild(a);
                 card.removeChild(dateValue);
+
+                
+              if (!data || !Array.isArray(data.data) || data.data.length === 0) {
+    
+                modalHistory.style.display = 'none';
+                return;
+}
               })
               .catch((err) => {
                 console.log(err);
@@ -611,13 +643,10 @@ function showHistory() {
         card.appendChild(a);
         a.appendChild(iconDelete);
         card.appendChild(dateValue);
-      });
-    })
-    .catch((err) => {
-      console.log("Erro: " + err);
-    });
-}
-showHistory();
+      })
+    }
+    }
+
 
 historyBtn.addEventListener("mouseover", () => {
   alertText.innerHTML = "Historic";
@@ -625,6 +654,9 @@ historyBtn.addEventListener("mouseover", () => {
 historyBtn.addEventListener("mouseout", () => {
   alertText.innerHTML = "";
 });
+
+
+ 
 
 
 // alert message (Connection)

@@ -78,7 +78,7 @@
     </div>
 
     <!--Modal for history -->
-    <div class="modal bs-modal-color" tabindex="3" id="modalHistory" style="backdrop-filter: blur(10px)">
+    <div class="modal bs-modal-color" tabindex="3" id="modalHistory">
       <div
         class="modal-dialog modal-dialog-centered modal-lg"
         style="height: 400px"
@@ -89,8 +89,8 @@
             <div
               type="button"
               class="btn-close btn-sm text-bg-danger"
-              data-bs-dismiss="modal"
-              aria-label="Close"
+              
+              id="btncloseModalHist"
               style="border-radius: 50%"
             ></div>
           </div>
@@ -147,8 +147,7 @@
             <i
               class="fa-solid fa-clock-rotate-left"
               id="historic"
-              data-bs-toggle="modal"
-              data-bs-target="#modalHistory"
+            
             ></i>
           </div>
           <div style="float: inline-end; display: flex; justify-self: end">

@@ -65,6 +65,8 @@ const sendMail = (email, question, response) => {
       </br><p>${response}</p>
       <p>Regards,</p>
       <p>Ai-Prompt Team Developers</p>
+      <br/>
+      <p><small>Don't response this email.</small></p>
       </body>`,
       attachments: [
         {

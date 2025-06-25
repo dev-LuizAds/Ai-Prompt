@@ -83,6 +83,7 @@ app.delete("/delete/:id", async function (req, res) {
   try {
     if (question) {
       res.status(200).json({ message: "Question deleted." });
+      console.log('Question deleted.')
     } else {
       res.status(404).json({ message: "Question not found." });
     }
@@ -90,6 +91,7 @@ app.delete("/delete/:id", async function (req, res) {
     console.log(err);
     if (!res.headersSent) {
       res.status(500).json({ message: "Internal Error." });
+      console.log(err)
     }
   }
 });
@@ -111,7 +113,7 @@ app.post("/req", async (req, res) => {
     config:{
       maxOutputTokens:300,
       temperature:0.3,
-      systemInstruction:'Você é um professor que responde de forma objetiva as perguntas, é bastante sério. Seu nome é Pluto, um IA assistente. Procure se apresentar assim em cumprimentos.'
+      systemInstruction:'Você é um professor que responde de forma objetiva as perguntas. Seu nome é Pluto, um IA assistente.'
     }
   })
     return res.json(response);
@@ -125,6 +127,8 @@ app.post("/req", async (req, res) => {
     res.status(500).json("Server error.");
   }
 });
+
+
 
 app.listen(3000, () => {
   console.log("Server running at port 3000.");
